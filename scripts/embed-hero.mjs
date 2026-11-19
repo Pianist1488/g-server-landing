@@ -3,16 +3,22 @@ import { resolve } from "node:path";
 
 const projectRoot = resolve(new URL("..", import.meta.url).pathname);
 const workerPath = resolve(projectRoot, "dist/server/index.js");
-const imagePath = resolve(projectRoot, "assets/hero-transit-case.webp");
+const assets = [
+  ["__HERO_IMAGE_DATA_URL__", "assets/hero-transit-case.webp", "image/webp"],
+  ["__STAVA_TEXTURE_DATA_URL__", "assets/stava/felt_brush.png", "image/png"],
+  ["__ARCHIVO_FONT_DATA_URL__", "assets/stava/archivo-var.woff2", "font/woff2"],
+  ["__CHIVO_FONT_DATA_URL__", "assets/stava/chivo-300-900.woff2", "font/woff2"],
+  ["__CHIVO_MONO_FONT_DATA_URL__", "assets/stava/chivo-mono-var.woff2", "font/woff2"],
+  ["__SYNCOPATE_FONT_DATA_URL__", "assets/stava/syncopate-700.woff2", "font/woff2"],
+];
 
-const [source, image] = await Promise.all([
-  readFile(workerPath, "utf8"),
-  readFile(imagePath),
-]);
-
-const dataUrl = `data:image/webp;base64,${image.toString("base64")}`;
-if (!source.includes("__HERO_IMAGE_DATA_URL__")) {
-  throw new Error("Hero image placeholder is missing from dist/server/index.js");
+let source = await readFile(workerPath, "utf8");
+for (const [placeholder, relativePath, mime] of assets) {
+  if (!source.includes(placeholder)) {
+    throw new Error(`${placeholder} is missing from dist/server/index.js`);
+  }
+  const data = await readFile(resolve(projectRoot, relativePath));
+  source = source.replace(placeholder, `data:${mime};base64,${data.toString("base64")}`);
 }
 
-await writeFile(workerPath, source.replace("__HERO_IMAGE_DATA_URL__", dataUrl));
+await writeFile(workerPath, source);
