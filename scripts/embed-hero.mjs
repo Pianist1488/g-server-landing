@@ -7,7 +7,7 @@ const assets = [
   ["__HERO_IMAGE_DATA_URL__", "assets/hero-transit-case.webp", "image/webp"],
   ["__PRODUCT_H200_DATA_URL__", "assets/products/h200.webp", "image/webp"],
   ["__PRODUCT_RTX_PRO_6000_DATA_URL__", "assets/products/rtx-pro-6000.webp", "image/webp"],
-  ["__PRODUCT_DGX_SPARK_DATA_URL__", "assets/products/dgx-spark.webp", "image/webp"],
+  ["__PRODUCT_DGX_SPARK_DATA_URL__", "assets/products/dgx-spark-v2.webp", "image/webp"],
   ["__PRODUCT_SAMSUNG_32_DATA_URL__", "assets/products/samsung-32gb.webp", "image/webp"],
   ["__PRODUCT_SAMSUNG_64_DATA_URL__", "assets/products/samsung-64gb.webp", "image/webp"],
   ["__STAVA_TEXTURE_DATA_URL__", "assets/stava/felt_brush.png", "image/png"],
