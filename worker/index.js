@@ -1,3 +1,5 @@
+import { buildHomeV2 } from "./home-v2.js";
+
 const heroImage = "__HERO_IMAGE_DATA_URL__";
 const productImages = {
   h200: "__PRODUCT_H200_DATA_URL__",
@@ -33,7 +35,7 @@ const products = [
 });
 
 const SITE_URL = "https://nasledie-it-supply.metriccord512.chatgpt.site";
-const SITE_NAME = "Наследие";
+const SITE_NAME = "G Server";
 const mainDescription = "NVIDIA H200 NVL, RTX PRO 6000, DGX Spark и память Samsung с поставкой по России до 14 дней. Цены, точный P/N, договор и расчёт опта.";
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -49,6 +51,16 @@ const websiteSchema = {
   url: SITE_URL,
   inLanguage: "ru-RU",
 };
+
+const pageV2 = buildHomeV2({
+  products,
+  siteUrl: SITE_URL,
+  organizationSchema: { ...organizationSchema, name: SITE_NAME },
+  websiteSchema: { ...websiteSchema, name: SITE_NAME },
+  archivoFont,
+  chivoFont,
+  chivoMonoFont,
+});
 
 const productPickerOptions = products.map((p) => `<button class="picker-option" type="button" role="option" data-value="${p.name} — ${p.pn}"><span class="picker-option__brand">${p.family}</span><span class="picker-option__main"><b>${p.name}</b><small>${p.pn}</small></span><span class="picker-option__side"><b>${p.price}</b><small><i></i>${p.status}</small></span></button>`).join("");
 const productRows = products.map((p, index) => `
@@ -206,7 +218,7 @@ const productPage = (product) => {
       { "@type": "ListItem", position: 2, name: `${product.family} ${product.name}`, item: canonical },
     ],
   };
-  return `<!doctype html><html lang="ru" class="dark"><head>
+  return `<!doctype html><html lang="ru" class="light"><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>${title}</title><meta name="description" content="${description}">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"><link rel="canonical" href="${canonical}">
@@ -216,7 +228,6 @@ const productPage = (product) => {
   <meta property="product:price:amount" content="${product.priceValue}"><meta property="product:price:currency" content="RUB">
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title}"><meta name="twitter:description" content="${description}"><meta name="twitter:image" content="${SITE_URL}${product.imagePath}">
   <script type="application/ld+json">${JSON.stringify(productSchema)}</script><script type="application/ld+json">${JSON.stringify(breadcrumbSchema)}</script>
-  <script>try{document.documentElement.className=localStorage.getItem('nasledie-theme')==='light'?'light':'dark'}catch(_){}</script>
   <style>
   @font-face{font-family:Archivo;src:url('${archivoFont}') format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:Chivo;src:url('${chivoFont}') format('woff2');font-weight:300 900;font-display:swap}@font-face{font-family:'Chivo Mono';src:url('${chivoMonoFont}') format('woff2');font-weight:100 900;font-display:swap}@font-face{font-family:Syncopate;src:url('${syncopateFont}') format('woff2');font-weight:700;font-display:swap}
   :root{color-scheme:dark;--bg:#10182a;--deep:#0c1220;--panel:#151f33;--line:rgba(231,229,224,.14);--bone:#e7e5e0;--text:#c9cdd6;--muted:#8e98ab;--money:#4fd08a;--money-hi:#7ee0a8;--money-ink:#06261a;--tint:rgba(79,208,138,.1);--navy:#1a2540;--shadow:0 18px 48px rgba(0,0,0,.35)}html.light{color-scheme:light;--bg:#f6f7f9;--deep:#fff;--panel:#eceef2;--line:rgba(11,17,29,.14);--bone:#151a26;--text:#151a26;--muted:#4f586a;--money:#0f7a45;--money-hi:#128449;--money-ink:#fff;--tint:rgba(15,122,69,.08);--navy:#e9ecf2;--shadow:0 18px 48px rgba(11,17,29,.14)}
@@ -225,13 +236,12 @@ const productPage = (product) => {
   .content{padding:0 0 clamp(70px,9vw,120px)}.content__grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}.content article{background:var(--panel);padding:30px;min-height:230px}.content article span{font-family:'Chivo Mono',monospace;color:var(--money);font-size:.78rem}.content h2{font:700 clamp(1.8rem,3vw,2.7rem)/1 Archivo,system-ui;color:var(--bone);margin:38px 0 12px}.content p{color:var(--muted);margin:0}.related{padding:clamp(70px,9vw,110px) 0;background:var(--deep);border-top:1px solid var(--line)}.related h2{font:700 clamp(2.3rem,5vw,4.5rem)/.95 Archivo,system-ui;color:var(--bone);margin:0 0 38px}.related__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.related a{display:grid;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 12px 20px;transition:transform .12s;overflow:hidden}.related a:hover{transform:translateY(-2px)}.related img{width:100%;height:138px;object-fit:cover;border-radius:8px;background:var(--deep);margin-bottom:8px}.related a[data-family="Samsung"] img{object-fit:contain;background:#fff;padding:12px}.related small,.related b,.related span,.related strong{margin-left:10px;margin-right:10px}.related small{color:var(--money)}.related b{font-size:1.1rem;color:var(--bone)}.related span{color:var(--muted)}footer{padding:30px 0;background:var(--deep);border-top:1px solid var(--line);color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer b{font-family:Syncopate;color:var(--bone)}
   @media(max-width:820px){.product-hero__grid{grid-template-columns:1fr}.price-card{position:static}.content__grid{grid-template-columns:1fr}.related__grid{grid-template-columns:1fr}.theme{width:44px;padding:0;font-size:0}.theme:after{content:"◐";font-size:1rem}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.related a:hover{transform:none}}
   </style></head><body>
-  <header class="nav"><div class="shell nav__in"><a class="brand" href="/">Наследие</a><div class="nav__actions"><button class="theme" id="product-theme" aria-label="Переключить цветовую тему">Тема</button><a class="cta" href="/?product=${encodeURIComponent(productValue)}#request">Получить КП</a></div></div></header>
+  <header class="nav"><div class="shell nav__in"><a class="brand" href="/">G Server</a><div class="nav__actions"><a class="cta" href="/?product=${encodeURIComponent(productValue)}#request">Получить КП</a></div></div></header>
   <main><div class="shell crumbs"><a href="/">Главная</a> · <a href="/#catalog">Каталог</a> · ${product.family} ${product.name}</div>
   <section class="product-hero"><div class="shell product-hero__grid"><div><p class="eyebrow">${product.family} · профессиональное оборудование</p><h1>${product.name}</h1><p class="lead">${product.summary}</p><figure class="product-visual product-visual--${product.family}"><img src="${product.imagePath}" alt="${product.imageAlt}" width="1200" height="675" fetchpriority="high"><figcaption><span>${product.imageNote}</span><b>P/N ${product.pn}</b></figcaption></figure></div><aside class="price-card"><span>Цена за 1 единицу</span><strong>${product.price}</strong><div class="status"><i></i>${product.status}</div><dl><div><dt>P/N</dt><dd>${product.pn}</dd></div><div><dt>Поставка</dt><dd>до 14 календарных дней</dd></div><div><dt>Доставка</dt><dd>включена в предложение</dd></div><div><dt>Документы</dt><dd>КП, договор, счёт</dd></div></dl><a class="cta" href="/?product=${encodeURIComponent(productValue)}#request">Запросить коммерческое предложение</a></aside></div></section>
   <section class="content"><div class="shell content__grid"><article><span>01</span><h2>Для каких задач</h2><p>${product.use}.</p></article><article><span>02</span><h2>Точная версия</h2><p>Фиксируем модель и P/N ${product.pn} в спецификации до оплаты.</p></article><article><span>03</span><h2>Цена для партии</h2><p>Для оптового заказа запрашиваем дополнительный дисконт и готовим отдельный расчёт.</p></article><article><span>04</span><h2>Поставка по договору</h2><p>Согласовываем цену, срок и комплект документов, затем сопровождаем заказ по этапам.</p></article></div></section>
   <section class="related"><div class="shell"><p class="eyebrow">Другие позиции</p><h2>Профессиональное оборудование в наличии</h2><div class="related__grid">${related.map((item)=>`<a href="/${item.slug}" data-family="${item.family}"><img src="${item.imagePath}" alt="${item.imageAlt}" width="420" height="240" loading="lazy"><small>${item.family}</small><b>${item.name}</b><span>${item.pn}</span><strong>${item.price}</strong></a>`).join("")}</div></div></section></main>
-  <footer><div class="shell footer"><span><b>Наследие</b> · compute supply</span><span>Поставка по России до 14 дней</span><a href="/#request">Получить расчёт</a></div></footer>
-  <script>const t=document.querySelector('#product-theme');t.addEventListener('click',()=>{const l=!document.documentElement.classList.contains('light');document.documentElement.className=l?'light':'dark';try{localStorage.setItem('nasledie-theme',l?'light':'dark')}catch(_){}})</script>
+  <footer><div class="shell footer"><span><b>G Server</b></span><span>Поставка по России до 14 дней</span><a href="/#request">Получить расчёт</a></div></footer>
   </body></html>`;
 };
 
@@ -256,7 +266,7 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname !== "/" && url.pathname.endsWith("/") ? url.pathname.slice(0, -1) : url.pathname;
     if (request.method === "GET" && path === "/") {
-      return new Response(page, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=300" } });
+      return new Response(pageV2, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=60" } });
     }
     if (request.method === "GET" && path === "/robots.txt") {
       return new Response(robots, { headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "public, max-age=3600" } });
