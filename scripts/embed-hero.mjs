@@ -5,6 +5,10 @@ const projectRoot = resolve(new URL("..", import.meta.url).pathname);
 const workerPath = resolve(projectRoot, "dist/server/index.js");
 const assets = [
   ["__HERO_IMAGE_DATA_URL__", "assets/hero-transit-case.webp", "image/webp"],
+  ["__HERO_VIDEO_DATA_URL__", "assets/hero-gpu.mp4", "video/mp4"],
+  ["__HERO_VIDEO_POSTER_DATA_URL__", "assets/hero-gpu-poster.webp", "image/webp"],
+  ["__CATEGORY_PROFESSIONAL_GPU_DATA_URL__", "assets/categories/professional-gpu.webp", "image/webp"],
+  ["__CATEGORY_GPU_SERVER_DATA_URL__", "assets/categories/gpu-server.webp", "image/webp"],
   ["__PRODUCT_H200_DATA_URL__", "assets/products/h200.webp", "image/webp"],
   ["__PRODUCT_RTX_PRO_6000_DATA_URL__", "assets/products/rtx-pro-6000.webp", "image/webp"],
   ["__PRODUCT_DGX_SPARK_DATA_URL__", "assets/products/dgx-spark-v2.webp", "image/webp"],

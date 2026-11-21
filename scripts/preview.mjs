@@ -16,10 +16,7 @@ const server = http.createServer(async (request, response) => {
       body,
       duplex: body ? "half" : undefined,
     });
-    const workerResponse = await worker.fetch(workerRequest, {
-      TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || "",
-      TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || "",
-    });
+    const workerResponse = await worker.fetch(workerRequest);
 
     response.writeHead(
       workerResponse.status,

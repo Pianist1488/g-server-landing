@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "bash scripts/build.sh",
+    "test": "npm run build && node scripts/test-media.mjs && node scripts/test-home.mjs",
     "validate": "node scripts/validate-artifact.mjs",
     "preview": "node scripts/preview.mjs"
   }
